@@ -4,23 +4,28 @@ import Element from './Element'
 
 
 const App = () => {
+  const [status, setStatus] = useState(true);
+  const [aRow, setARow] = useState([1,2,3,4]);
+  const [bRow, setBRow] = useState([1,2,3,4]);
+  const [cRow, setCRow] = useState([1,2,3,4]);
+  const [dRow, setDRow] = useState([1,2,3,4]);
+
   const array = [
-    [1,2,3,4],
-    [5,6,7,8],
-    [9,10,11,12],
-    [13,14,15,16]
+    aRow,
+    bRow,
+    cRow,
+    dRow
   ];
 
-  const [status, setStatus] = useState(true);
-  
   const onKeyUp= () => {
     setStatus(false);
   };
 
   useEffect(() => {
     document.addEventListener('keyup', function(event) {
-      if (event.which === 37 || event.which === 38 || event.which === 39 || event.which === 40) {
-        onKeyUp()
+      if (event.which === 38) {
+        //onKeyUp()
+        setARow([bRow[0]+cRow[0]+dRow[0], bRow[1]+cRow[1]+dRow[1], bRow[2]+cRow[2]+dRow[2], bRow[3]+cRow[3]+dRow[3]])
       }
     })
   }, [status])
