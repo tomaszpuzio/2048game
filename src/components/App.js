@@ -5,10 +5,10 @@ import Element from './Element'
 
 const App = () => {
   const [matrix, setMatrix] = useState([
-    [0,0,0,0],
-    [0,0,0,0],
-    [0,0,0,0],
-    [0,0,0,0]
+    [null,null,null,null],
+    [null,null,null,null],
+    [null,null,null,null],
+    [null,null,null,null]
     ]);
 
  
@@ -20,7 +20,19 @@ const App = () => {
   useEffect(() => {
     document.addEventListener('keyup', function(event) {
       if (event.which === 38) {
-        matrix[Math.floor(Math.random() * 4)][Math.floor(Math.random() * 4)]=2
+        matrix[0] = matrix[0].map((cell,cellIndex) => {
+          return cell + matrix[1][cellIndex]+ matrix[2][cellIndex] + + matrix[3][cellIndex]
+        });
+
+        let x = Math.floor(Math.random() * 4)
+        let y = Math.floor(Math.random() * 4)
+          
+        while (matrix[x][y] === 2) {
+          x = Math.floor(Math.random() * 4)
+          y = Math.floor(Math.random() * 4)
+        } 
+
+        matrix[x][y]=2
         setMatrix([...matrix])
       }
     })
