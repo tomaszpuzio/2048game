@@ -5,10 +5,10 @@ import Element from './Element'
 
 const App = () => {
   const [matrix, setMatrix] = useState([
-    [null,null,null,null],
-    [null,null,null,null],
-    [null,null,null,null],
-    [null,null,null,null]
+    [0, 0, 0, 0],
+    [2, 2, 0, 0],
+    [0, 0, 0, 0],
+    [2, 2, 0, 0]
     ]);
 
  
@@ -20,19 +20,24 @@ const App = () => {
   useEffect(() => {
     document.addEventListener('keyup', function(event) {
       if (event.which === 38) {
-        matrix[0] = matrix[0].map((cell,cellIndex) => {
-          return cell + matrix[1][cellIndex]+ matrix[2][cellIndex] + + matrix[3][cellIndex]
-        });
+        matrix.slice(0,3).forEach((row,rowIndex) =>
+          row.forEach((cell,cellIndex) => {
+            if (matrix[rowIndex][cellIndex] === matrix[rowIndex+1][cellIndex] || matrix[rowIndex][cellIndex] === 0) {
+                matrix[rowIndex][cellIndex] = matrix[rowIndex][cellIndex]+matrix[rowIndex+1][cellIndex]
+                matrix[rowIndex+1][cellIndex] = 0
+            }
+          })
+        )
 
-        let x = Math.floor(Math.random() * 4)
-        let y = Math.floor(Math.random() * 4)
+        // let x = Math.floor(Math.random() * 4)
+        // let y = Math.floor(Math.random() * 4)
           
-        while (matrix[x][y] === 2) {
-          x = Math.floor(Math.random() * 4)
-          y = Math.floor(Math.random() * 4)
-        } 
+        // while (matrix[x][y] === 2) {
+        //   x = Math.floor(Math.random() * 4)
+        //   y = Math.floor(Math.random() * 4)
+        // } 
 
-        matrix[x][y]=2
+        // matrix[x][y]=2
         setMatrix([...matrix])
       }
     })
